@@ -1,8 +1,7 @@
 ---
 layout: post
-date: 2015-10-22 15:59:00-0400
+date: 2020-06-06 10:00:00
 inline: true
-related_posts: false
 ---
 
-A simple inline announcement.
+Starting a minor in Computer Science with Computer Networks
