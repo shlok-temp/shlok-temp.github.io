@@ -1,0 +1,127 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Edge AI: Engineering Local Image Classification on Android | Nemani Shlok </title> <meta name="author" content="Nemani Shlok"> <meta name="description" content="How I built a zero-latency, on-device image classification Android app using Java, Python, and TFLite during my 4th year as an undergraduate at IIT Bombay."> <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website"> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?v=f0b101217084a90093badfe99ff9a7d1"> <link rel="canonical" href="https://shlok-temp.github.io/blog/2023/Edge_AI/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Nemani</span> Shlok </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Edge AI: Engineering Local Image Classification on Android</h1> <p class="post-meta"> Created on October 20, 2023 </p> <p class="post-tags"> <a href="/blog/2023"> <i class="fa-solid fa-calendar fa-sm"></i> 2023 </a>   ·   <a href="/blog/tag/android"> <i class="fa-solid fa-hashtag fa-sm"></i> android</a>   <a href="/blog/tag/java"> <i class="fa-solid fa-hashtag fa-sm"></i> java</a>   <a href="/blog/tag/tflite"> <i class="fa-solid fa-hashtag fa-sm"></i> tflite</a>   <a href="/blog/tag/python"> <i class="fa-solid fa-hashtag fa-sm"></i> python</a>   <a href="/blog/tag/iit-bombay"> <i class="fa-solid fa-hashtag fa-sm"></i> iit-bombay</a>   <a href="/blog/tag/edge-ai"> <i class="fa-solid fa-hashtag fa-sm"></i> edge-ai</a>   ·   <a href="/blog/category/android"> <i class="fa-solid fa-tag fa-sm"></i> Android</a>   <a href="/blog/category/machine-learning"> <i class="fa-solid fa-tag fa-sm"></i> Machine-Learning</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>During my 4th year as an undergraduate student at <strong>IIT Bombay</strong>, I wanted to move beyond theoretical machine learning frameworks and tackle real-world mobile engineering constraints. This drive led me to join the <strong>SPANN Lab</strong> under the guidance of <strong>Prof. V.M. Gadre</strong> as an Android Developer through the iSURP IITB initiative.</p> <p>My core objective was clear: bridge the gap between heavy machine learning models and mobile deployment architectures. I needed to build a production-ready application from scratch that could execute intelligent vision systems locally, completely bypassing the need for high-latency, cloud-based infrastructure.</p> <h3 id="the-challenge-breaking-free-from-cloud-latency">The Challenge: Breaking Free from Cloud Latency</h3> <p>Traditional mobile applications typically offload computer vision tasks to remote servers via API endpoints. While this saves device memory, it introduces significant latency and makes the app completely dependent on continuous network connectivity.</p> <p>To achieve zero-latency, on-device intelligence (Edge AI), the machine learning model had to run natively within the client environment on a standard smartphone chip. The real engineering bottleneck was figuring out how to execute this without draining the hardware’s resources or causing the UI to freeze during inference.</p> <h3 id="the-architecture-bridging-java-and-python">The Architecture: Bridging Java and Python</h3> <p>I started the pipeline by wireframing a modern, intuitive user interface in <strong>Figma</strong> to cleanly present the analytical data. Once the design system was locked in, I transitioned to <strong>Android Studio</strong> to build the core application framework using <strong>Java</strong>.</p> <p>To solve the localized inference problem, I engineered a hybrid runtime architecture:</p> <ul> <li> <strong>The Bridge:</strong> I integrated the <strong>Chaquopy SDK</strong>, a robust toolkit that allows seamless script execution and bidirectional communication between Java-based Android components and localized Python environments.</li> <li> <strong>The Engine:</strong> Within the Python layer, I utilized the <strong>TensorFlow Lite (TFLite)</strong> module to load highly compressed, pre-trained image classification models optimized for mobile.</li> <li> <strong>The Pipeline:</strong> I built a custom bitmap conversion pipeline. The Java frontend captured live camera frames, optimized their dimensions, and passed the raw byte arrays across the SDK bridge. The Python backend instantly processed the frames, executed the TFLite inference, and smoothly returned the classification tokens back to the UI.</li> </ul> <h3 id="the-result-real-time-edge-intelligence">The Result: Real-Time Edge Intelligence</h3> <p>The months spent refining this memory-conscious architecture paid off. I successfully delivered a highly optimized, fully functional system capable of real-time local image classification.</p> <p>This project proved that hardware constraints on edge devices can be overcome with smart, cross-language software design. Beyond the technical milestones, this journey in full-stack mobile AI engineering was highly rewarding, capping off with a personal Letter of Recommendation from Prof. Gadre validating the rigorous approach.</p> </div> </article> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2024/A_Seamfull_Win/">19 Lines of Code: How I Won the Global Seam Miniapp Hackathon</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2023/passion_for_markets/">Markets &amp; Forecasting: How my passion lead to Google-backed KaggleX fellowship</a> </li> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2023/a_new_age_teaching/">Scaling Mentorship: Earning Top Tutor at Coursehero</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Nemani Shlok. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>. </div> </footer> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-blog",
+          title: "blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "post-19-lines-of-code-how-i-won-the-global-seam-miniapp-hackathon",
+        
+          title: "19 Lines of Code: How I Won the Global Seam Miniapp Hackathon",
+        
+        description: "How absolute code optimization, a multi-stage battle, and a strict 48-hour sprint turned my lightweight text component into a viral, hackathon-winning miniapp.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2024/A_Seamfull_Win/";
+          
+        },
+      },{id: "post-markets-amp-forecasting-how-my-passion-lead-to-google-backed-kagglex-fellowship",
+        
+          title: "Markets &amp; Forecasting: How my passion lead to Google-backed KaggleX fellowship",
+        
+        description: "How my passion for markets led to a Google-backed KaggleX Fellowship, and the hybrid time-series and gradient boosting architecture I built to achieve 87.8% accuracy.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/passion_for_markets/";
+          
+        },
+      },{id: "post-edge-ai-engineering-local-image-classification-on-android",
+        
+          title: "Edge AI: Engineering Local Image Classification on Android",
+        
+        description: "How I built a zero-latency, on-device image classification Android app using Java, Python, and TFLite during my 4th year as an undergraduate at IIT Bombay.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/Edge_AI/";
+          
+        },
+      },{id: "post-scaling-mentorship-earning-top-tutor-at-coursehero",
+        
+          title: "Scaling Mentorship: Earning Top Tutor at Coursehero",
+        
+        description: "A practical look back at my year tutoring on Coursehero, expanding from Electrical Engineering to CS and Math, and earning Top Tutor status.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2023/a_new_age_teaching/";
+          
+        },
+      },{id: "news-starting-a-minor-in-computer-science-with-computer-networks",
+          title: 'Starting a minor in Computer Science with Computer Networks',
+          description: "",
+          section: "News",},{id: "projects-project-1",
+          title: 'project 1',
+          description: "with background image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/1_project/";
+            },},{id: "projects-project-2",
+          title: 'project 2',
+          description: "a project with a background image and giscus comments",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/2_project/";
+            },},{id: "projects-project-3-with-very-long-name",
+          title: 'project 3 with very long name',
+          description: "a project that redirects to another website",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/3_project/";
+            },},{id: "projects-project-4",
+          title: 'project 4',
+          description: "another without an image",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/4_project/";
+            },},{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
