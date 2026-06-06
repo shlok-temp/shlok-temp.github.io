@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Cracking GATE Electronics: How I Secured AIR 2 in My Third Year"
-date: 2022-04-15
+date: 2022-04-12
 categories: [Engineering, Mentorship]
 tags: [gate, electronics, nptel, preparation-guide]
 image: /assets/images/gate-electronics-banner.jpg
