@@ -45,5 +45,15 @@ Preparing for GATE is a journey that shapes how you think as an engineer. The un
 
 Whether your ultimate goal is to pursue advanced research, secure a role in a top public sector enterprise, or build high-performance software systems, the mathematical resilience and disciplined learning habits you forge during your GATE preparation will serve as your most valuable engineering assets. Stick to the fundamentals, leverage NPTEL, build your own comprehensive notes, and trust the process.
 
+### A Small Coincidence I Find Interesting (Updated 2026)
+
+There is another part of my GATE EC journey that I find particularly interesting in hindsight.
+
+The **AIR 1 in GATE EC 2022 was Ram Balaji S**, from IIT Madras. He secured **78 marks and a GATE score of 1000**, topping the Electronics and Communication Engineering paper that year.
+
+Ram came from the **Engineering Physics program at IIT Madras**, with a strong intersection of physics and electronics. After GATE, he went on to work at **Texas Instruments as an Analog Design Engineer**.
+
+What makes this especially interesting to me is that I eventually ended up at the same company as well, although on a very different side of engineering. While Ram works in Analog Design, my work at TI has been in EDA Infrastructure and software engineering. I did talk with him on this once that I was AIR 2!
+
 
 *My workflows involve using AI for writing/compiling my final thoughts*
