@@ -8,7 +8,7 @@ image: /assets/images/hackathon-banner.jpg
 description: "How absolute code optimization, a multi-stage battle, and a strict 48-hour sprint turned my lightweight text component into a viral, hackathon-winning miniapp."
 ---
 
-![Dizzy Text Feature Image]({{ site.baseurl }}/assets/img/ban3.jpeg)
+![Dizzy Text Feature Image]({{ site.baseurl }}/assets/img/ban3.jpg)
 
 In the sweltering summer of 2024, I made a spontaneous decision to jump into the highly competitive **Seam Miniapp Hackathon**. The event attracted over a hundred brilliant software developers from across the globe, all vying for the top spot. 
 

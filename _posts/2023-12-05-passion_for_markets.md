@@ -8,7 +8,7 @@ image: /assets/images/forecasting-banner.jpg
 description: "How my passion for markets led to a Google-backed KaggleX Fellowship, and the hybrid time-series and gradient boosting architecture I built to achieve 87.8% accuracy."
 ---
 
-![Forecasting Feature Image]({{ site.baseurl }}/assets/img/ban2.jpeg)
+![Forecasting Feature Image]({{ site.baseurl }}/assets/img/ban2.jpg)
 
 In the summer of 2023, my deep-rooted passion for financial markets naturally drew me into the complex world of time-series forecasting. I started spending countless hours working on predictive models, fascinated by the idea of decoding hidden patterns within seemingly chaotic datasets. It was during this intense period of self-directed research and building that I decided to apply for the KaggleX BIPOC Fellowship. 
 
